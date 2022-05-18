@@ -1,0 +1,919 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Favorites List | Alte - Real estate | Find your future home{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'properties/base.css' %}">
+    <link rel="stylesheet" href="{% static 'properties/properties.css' %}">
+    <link rel="stylesheet" href="{% static 'properties/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'properties/res_properties.css' %}">
+    <style>
+        .property__header-btn-left .property__header-next-before::after {
+            content: "";
+            display: block;
+            border-top: solid 0 transparent;
+            border-bottom: solid 40px var(--properties-color);
+            border-left: solid 10px transparent;
+            left: 7px;
+            position: relative;
+        }
+        
+        .property__list-header-right {
+            padding: 125px 0px 0px 401px;
+        }
+        
+        .js__display-flex {
+            display: flex;
+        }
+        
+        .js__visibility-unset-opa-1 {
+            visibility: unset;
+            opacity: 1;
+        }
+        
+        .js__width-100 {
+            width: 100%;
+        }
+        
+        .js__width-auto {
+            width: auto;
+        }
+        
+        .js__height-auto {
+            height: auto;
+        }
+        
+        .js__object-fit-cover {
+            object-fit: cover;
+        }
+        
+        .js__mr-50 {
+            margin-top: 50px;
+        }
+        
+        .property__list-line .property__items:hover {
+            height: 100%;
+            cursor: pointer;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+            transform: translateY(-40px);
+        }
+        
+        .WidthImg {
+            width: 100% !important;
+        }
+        
+        .Widthblock_img {
+            width: 80% !important;
+        }
+        
+        .property__list-line-text .property__list-btn-left::after {
+            left: 28%;
+        }
+        
+        @media screen and (max-width:740px) {
+            .property__header-btn-left {
+                display: none;
+            }
+        }
+        /* tablet */
+        
+        @media screen and (min-width: 740px) and (max-width:1024px) {
+            .property__header-btn-left {
+                display: none;
+            }
+        }
+        
+        .property_list-btn-like i {
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- begin header -->
+    <header id="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="header__wrap">
+                    <div class="header">
+                        <div class="header__left">
+                            <i class="fas fa-home"></i>
+                            <span>Alte</span>
+                        </div>
+                        <div class="header-list__menu">
+                            <i class="fas fa-bars"></i>
+                        </div>
+                        <div class="header__right">
+                            <div class="header__right-close">
+                                <i class="fas fa-times"></i>
+                            </div>
+                            <ul class="header__list">
+                                <li class="header__item">
+                                    <a href="{% url 'home:home' %}" class="header__link">Home</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="{% url 'about:about' %}" class="header__link">About</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="{% url 'properties:getProperties' %}" class="header__link">Properties</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="{% url 'contact:contact' %}" class="header__link">Contact</a>
+                                </li>
+                                {% if user.id != None %}
+                                    <li class="header__item">
+                                        <span class="header__user">
+                                            Hello, 
+                                            {% if user.id != None %}
+                                                {{ request.user }}
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="header__item">
+                                        <a href="{% url 'logout' %}" class="header__link">Logout</a>
+                                    </li>
+                                {% else %}
+                                    <li class="header__item">
+                                        <a href="{% url 'register' %}" class="header__link link-signup">Register</a>
+                                    </li>
+                                    <li class="header__item">
+                                        <a href="{% url 'login' %}" class="header__link link-signin">Login</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- <div class="header__content">
+                    </div> -->
+                    <!-- https://www.fazwaz.vn/property-for-sale/vietnam -->
+                    {% for TopHouseItems in TopHouse %}
+                    <div class="header__slider">
+                        <div class="header__slider-slide">
+                            <input type="radio" name="radio-btn" id="radio1">
+                            <input type="radio" name="radio-btn" id="radio2">
+                            <input type="radio" name="radio-btn" id="radio3">
+                            <input type="radio" name="radio-btn" id="radio4">
+
+                            <div class="header__slide-img first">
+                                <div class="header__slide-hidden1">
+                                    <div class="header__slider-info">
+                                        <div class="js__view-header-info-photo">
+                                            <i class="fas fa-image"></i>
+                                        </div>
+
+                                        <div class="js__view-header-info-map">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+
+                                        <div class="js__view-header-info-street">
+                                            <i class="fas fa-map"></i>
+                                        </div>
+
+                                        <div class="js__view-header-info-share">
+                                            <i class="fas fa-share-alt-square"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="header__silder-content">
+                                        <div class="property-type_one">
+                                            <span>Featured</span>
+                                        </div>
+                                        <div class="property-type">
+                                            <span>For Rent</span>
+                                        </div>
+                                        <h2>NovaWorld {{TopHouseItems.30}}</h2>
+                                        <p>
+                                            <a href="https://goo.gl/maps/vGJWVRZTKejGk5YR7">
+                                                <i class="fas fa-map-marker-alt "></i> {{TopHouseItems.32}}, {{TopHouseItems.30}} , {{TopHouseItems.28}}
+                                            </a>
+                                        </p>
+                                        <p> {{TopHouseItems.6}} sq ft <span>   $ {{TopHouseItems.2}}</span></p>
+                                    </div>
+                                </div>
+                                <img src='{{ MEDIA_URL }}{{ TopHouseItems.20 }}' alt="">
+                            </div>
+                            <div class="header__slide-img">
+                                <!-- https://www.fazwaz.vn/property-sales/1-bedroom-villa-for-sale-at-fusion-maia-resort-in-cat-tien-binh-dinh-u1029896 -->
+                                <img src='{{ MEDIA_URL }}{{ TopHouseItems.21 }}' alt="">
+                            </div>
+                            <div class="header__slide-img">
+                                <img src='{{ MEDIA_URL }}{{ TopHouseItems.22}}' alt="">
+                            </div>
+
+                            <div class="header__slide-img">
+                                <img src='{{ MEDIA_URL }}{{ TopHouseItems.23}}' alt="">
+                            </div>
+                            <div class="header__nav-auto ">
+                                <div class="a-b1 "></div>
+                                <div class="a-b2 "></div>
+                                <div class="a-b3 "></div>
+                                <div class="a-b4 "></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="view__header-info-photo ">
+                        <div class="view__header-info-photo-container">
+                            <div class="view__header-info-photo-close ">
+                                <i class="fas fa-times "></i>
+                            </div>
+                            <div class="view__header-info-photo-slider ">
+                                <div class="view__header-info-photo-slide ">
+                                    <div id="widthPhotosImg" class="view__header-info-photo-img ">
+                                        <img src='{{ MEDIA_URL }}{{ TopHouseItems.20}}' alt="">
+                                    </div>
+                                    <div class="view__header-info-photo-img ">
+                                        <img src='{{ MEDIA_URL }}{{ TopHouseItems.21 }}' alt="">
+                                    </div>
+                                    <div class="view__header-info-photo-img ">
+                                        <img src='{{ MEDIA_URL }}{{ TopHouseItems.22}}' alt="">
+                                    </div>
+                                    <div class="view__header-info-photo-img ">
+                                        <img src='{{ MEDIA_URL }}{{ TopHouseItems.23 }}' alt="">
+                                    </div>
+                                    <div class="view__header-info-photo-img ">
+                                        <img src='{{ MEDIA_URL }}{{ TopHouseItems.24 }}' alt="">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="view__header-photo-btn-left ">
+                                <div class="view__header-photo-next-before ">
+                                    <i class="fas fa-chevron-left "></i>
+                                </div>
+
+                                <div class="view__header-photo-next-after ">
+                                    <i class="fas fa-chevron-right "></i>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- begin sign in, sign up -->
+    {% comment %} <div class="my-modal sign-up">
+        <form action="" class="form-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="modal-heading">Sign Up</div>
+            <input class="form-input" type="email" placeholder="Enter your email" required>
+            <button class="done">Continue</button>
+            <div class="hr"></div>
+            <div class="wrap-btn">
+                <a href="https://www.facebook.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://accounts.google.com/ServiceLogin/signinchooser?hl=vi&passive=true&continue=https%3A%2F%2Fwww.google.com.vn%2F%3Fhl%3Dvi&ec=GAZAmgQ&flowName=GlifWebSignIn&flowEntry=ServiceLogin" class="social-media" target="_blank">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Google</span>
+                </a>
+                <a href="https://www.apple.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-apple"></i>
+                    <span>Apple</span>
+                </a>
+            </div>
+            <p class="form-service">
+                By registering, you agree to Alte about
+                <a href="">Terms of Service</a> &
+                <a href="">Privacy Policy</a>
+            </p>
+        </form>
+    </div>
+
+    <div class="my-modal sign-in">
+        <form action="" class="form-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="modal-heading">Sign In</div>
+            <input class="form-input" type="email" placeholder="Enter your email" required>
+            <div class="wrap-psw">
+                <input class="form-input" type="password" placeholder="Enter password" required>
+                <i class="fa-solid fa-eye"></i>
+            </div>
+            <button class="done">Sign In</button>
+            <a href="" class="wrap-service-left">Forgot password?</a>
+            <div class="hr"></div>
+            <div class="wrap-btn">
+                <a href="https://www.facebook.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://accounts.google.com/ServiceLogin/signinchooser?hl=vi&passive=true&continue=https%3A%2F%2Fwww.google.com.vn%2F%3Fhl%3Dvi&ec=GAZAmgQ&flowName=GlifWebSignIn&flowEntry=ServiceLogin" class="social-media" target="_blank">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Google</span>
+                </a>
+                <a href="https://www.apple.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-apple"></i>
+                    <span>Apple</span>
+                </a>
+            </div>
+        </form>
+    </div> {% endcomment %}
+
+    <!--  viewPhoto -->
+
+
+
+
+    <!--  viewMap -->
+    <div class="view__header-info-map ">
+        <div class="view__header-info-map-container ">
+            <div class="view__header-info-map-close ">
+                <i class="fas fa-times "></i>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9209.535836769614!2d109.22131264656728!3d13.950742925446828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316f412ea4bfc64b%3A0x91fd82de0538da25!2sCrown%20Retreat%20Resort%20Quy%20Nhon!5e0!3m2!1svi!2s!4v1644844696818!5m2!1svi!2s"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+
+    <!--  viewStreet -->
+    <div class="view__header-info-street ">
+        <div class="view__header-info-street-container ">
+            <div class="view__header-info-street-close ">
+                <i class="fas fa-times "></i>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!4v1644844760477!6m8!1m7!1sCAoSLEFGMVFpcE1WQkx0MHJaemJiaVV6TUh3dmhFWjMxUnhDRnBLWHR1Q1lJNjdf!2m2!1d13.9301719!2d109.2471227!3f31.28352992169378!4f16.483729195004955!5f0.4000000000000002" width="600" height="450"
+                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <!-- viewShare -->
+    <div class="view__header-info-share off__header-info-share ">
+        <div class="view__header-info-street-close ">
+            <i class="fas fa-times "></i>
+        </div>
+        <div>
+            <a href="https://www.facebook.com/profile.php?id=100033582201464">
+                <i class="fab fa-facebook-f "></i>
+            </a>
+        </div>
+        <div>
+            <a href="https://www.youtube.com/channel/UCeaA_PU_cKSdix3o7-aUfig">
+                <i class="fab fa-youtube "></i>
+            </a>
+        </div>
+        <div>
+            <a href="https://mail.google.com/mail/u/0/#inbox">
+                <i class="fas fa-envelope "></i>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- begin main -->
+    <main>
+        <!-- search -->
+        <!-- <div class="header__search row ">
+            <div class="col-md-4 col-xs-12">
+                <div class="header__search-left ">
+                    <p class="reveal__tranY ">discover your</p>
+                    <p class="reveal__tranY "><span>D</span>ream</p>
+                    <p class="reveal__tranY "><span>H</span>ouse</p>
+                </div>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <div class="header__search-right ">
+                    <div class="header__search-right-head reveal__tranY">
+                        <button class="rent ">
+                            For Rent
+                        </button>
+
+                        <button class="sale ">
+                            For Sale
+                        </button>
+                    </div>
+
+                    <div class="header__search-right-body reveal__tranY ">
+                        <div class="row ">
+                            <div class="col-md-4 col-xs-12 col-sm-12">
+                                <select name=" " id=" " class="js__header-search-shadow ">
+                                    <option value="Restaurant ">Restaurant</option>
+                                    <option value="Bar ">Bar</option>
+                                    <option value="Cafe ">Cafe</option>
+                                    <option value="Resort ">Resort</option>
+                                    <option value="Farm ">Farm</option>
+                                    <option value="Hotel ">Hotel</option>
+                                    <option value="House ">House</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 col-xs-12 col-sm-12 header__search-right-form-field ">
+                                <input type="text " placeholder=" " class="js__header-search-shadow ">
+                                <label class="header__search-label " for="title ">Title</label>
+                            </div>
+                            <div class="col-md-4 col-xs-12 col-sm-12 header__search-right-form-field ">
+                                <input type="text " placeholder=" " class="js__header-search-shadow ">
+                                <label class="header__search-label " for=" ">Address</label>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-4 col-xs-12">
+                                <select name=" " id=" " class="js__header-search-shadow ">
+                                    <option value="Any Bedrooms ">Any Bedrooms</option>
+                                    <option value="1 ">1</option>
+                                    <option value="2 ">2</option>
+                                    <option value="3 ">3</option>
+                                    <option value="4 ">4</option>
+                                    <option value="5 ">5</option>
+                                    <option value="6 ">6</option>
+                                    <option value="7 ">7</option>
+                                    <option value="8 ">8</option>
+                                    <option value="9 ">9</option>
+                                    <option value="10 ">10</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 col-xs-12">
+                                <select name=" " id=" " class="js__header-search-shadow ">
+                                    <option value="Any Bathrooms ">Any Bathrooms</option>
+                                    <option value="1 ">1</option>
+                                    <option value="2 ">2</option>
+                                    <option value="3 ">3</option>
+                                    <option value="4 ">4</option>
+                                    <option value="5 ">5</option>
+                                    <option value="6 ">6</option>
+                                    <option value="7 ">7</option>
+                                    <option value="8 ">8</option>
+                                    <option value="9 ">9</option>
+                                    <option value="10 ">10</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 col-xs-12">
+                                <div class="row ">
+                                    <div class="col-md-6 col-xs-12 col-sm-12">
+                                        <select name=" " id=" " class="js__header-search-shadow ">
+                                            <option value="Min Price ">Min Price</option>
+                                            <option value="$1,000 ">$1,000</option>
+                                            <option value="$2,000 ">$2,000</option>
+                                            <option value="$3,000 ">$3,000</option>
+                                            <option value="$4,000 ">$4,000</option>
+                                            <option value="$5,000 ">$5,000</option>
+                                            <option value="$6,000 ">$6,000</option>
+                                            <option value="$7,000 ">$7,000</option>
+                                            <option value="$8,000 ">$8,000</option>
+                                            <option value="$9,000 ">$9,000</option>
+                                            <option value="$10,000 ">$10,000</option>
+                                            <option value="$20,000 ">$20,000</option>
+                                            <option value="$30,000 ">$30,000</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12 col-sm-12">
+                                        <select name=" " id=" " class="js__header-search-shadow ">
+                                            <option value="Max Price ">Max Price</option>
+                                            <option value="$1,000 ">$1,000</option>
+                                            <option value="$2,000 ">$2,000</option>
+                                            <option value="$3,000 ">$3,000</option>
+                                            <option value="$4,000 ">$4,000</option>
+                                            <option value="$5,000 ">$5,000</option>
+                                            <option value="$6,000 ">$6,000</option>
+                                            <option value="$7,000 ">$7,000</option>
+                                            <option value="$8,000 ">$8,000</option>
+                                            <option value="$9,000 ">$9,000</option>
+                                            <option value="$10,000 ">$10,000</option>
+                                            <option value="$20,000 ">$20,000</option>
+                                            <option value="$30,000 ">$30,000</option>
+                                            <option value="$50,000 ">$50,000</option>
+                                            <option value="$100,000 ">$100,000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12 col-lg-4 header__search-right-form-field ">
+                                <div class="header__search-right-size ">
+                                    Size [<span class=" "></span> 0 - <span class="header__search-right-size-r ">1000 </span>] SqFt
+                                </div>
+                                <div class="range ">
+                                    <div class="sliderValue ">
+                                        <span>100</span>
+                                    </div>
+                                    <div class="field ">
+                                        <div class="value left ">0</div>
+                                        <input class="mr-0" type="range" min="0" max="1000" value="100" steps="1">
+                                        <div class="value right ">1000</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-4 header__search-right-form-field ">
+                                <div class="header__search-right-size ">
+                                    Land Area [<span class=" "></span> 0 - <span class="header__search-right-size-r ">1000 </span>] SqFt
+                                </div>
+                                <div class="range ">
+                                    <div class="sliderValue ">
+                                        <span>100</span>
+                                    </div>
+                                    <div class="field ">
+                                        <div class="value left ">0</div>
+                                        <input class="mr-0" type="range" min="0" max="1000" value="100" steps="1">
+                                        <div class="value right ">1000</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-4 header__search-right-form-field ">
+
+                                <input type="text " placeholder=" " class="js__header-search-shadow ">
+                                <label class="header__search-label " for=" ">Property ID</label>
+                            </div>
+                        </div>
+                        <div class="header__search-right-body-search ">
+                            <button>
+                                <i class="fas fa-search "></i>
+                                <span>Search</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="header__search row ">
+            <div class="col-md-4 col-xs-12">
+                <div class="header__search-left ">
+                    <p class="reveal__tranY ">discover your</p>
+                    <p class="reveal__tranY "><span>D</span>ream</p>
+                    <p class="reveal__tranY "><span>H</span>ouse</p>
+                </div>
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <div class="header__search-right ">
+                    <div class="header__search-right-head reveal__tranY">
+                        <button class="rent ">
+                            For Rent
+                        </button>
+
+                        <button class="sale ">
+                            For Sale
+                        </button>
+                    </div>
+
+                    <div class="header__search-right-body reveal__tranY ">
+                        <div class="row ">
+                            <!-- <div class="col-md-4 col-xs-12 col-sm-12">
+                                <select name=" " id=" " class="js__header-search-shadow ">
+                                    <option value="Restaurant ">Restaurant</option>
+                                    <option value="Bar ">Bar</option>
+                                    <option value="Cafe ">Cafe</option>
+                                    <option value="Resort ">Resort</option>
+                                    <option value="Farm ">Farm</option>
+                                    <option value="Hotel ">Hotel</option>
+                                    <option value="House ">House</option>
+                                </select>
+                            </div> -->
+                            <!-- <div class="col-md-12 col-xs-12 col-sm-12 header__search-right-form-field ">
+                                <input type="text " placeholder=" " class="js__header-search-shadow ">
+                                <label class="header__search-label " for="title ">Search here</label>
+                            </div> -->
+                            <!-- <div class="col-md-4 col-xs-12 col-sm-12 header__search-right-form-field ">
+                                <input type="text " placeholder=" " class="js__header-search-shadow ">
+                                <label class="header__search-label " for=" ">Address</label>
+                            </div> -->
+                        </div>
+
+                        <!-- <div class="row ">
+                            <div class="col-md-4 col-xs-12">
+                                <select name=" " id=" " class="js__header-search-shadow ">
+                                    <option value="Any Bedrooms ">Any Bedrooms</option>
+                                    <option value="1 ">1</option>
+                                    <option value="2 ">2</option>
+                                    <option value="3 ">3</option>
+                                    <option value="4 ">4</option>
+                                    <option value="5 ">5</option>
+                                    <option value="6 ">6</option>
+                                    <option value="7 ">7</option>
+                                    <option value="8 ">8</option>
+                                    <option value="9 ">9</option>
+                                    <option value="10 ">10</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 col-xs-12">
+                                <select name=" " id=" " class="js__header-search-shadow ">
+                                    <option value="Any Bathrooms ">Any Bathrooms</option>
+                                    <option value="1 ">1</option>
+                                    <option value="2 ">2</option>
+                                    <option value="3 ">3</option>
+                                    <option value="4 ">4</option>
+                                    <option value="5 ">5</option>
+                                    <option value="6 ">6</option>
+                                    <option value="7 ">7</option>
+                                    <option value="8 ">8</option>
+                                    <option value="9 ">9</option>
+                                    <option value="10 ">10</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 col-xs-12">
+                                <div class="row ">
+                                    <div class="col-md-6 col-xs-12 col-sm-12">
+                                        <select name=" " id=" " class="js__header-search-shadow ">
+                                            <option value="Min Price ">Min Price</option>
+                                            <option value="$1,000 ">$1,000</option>
+                                            <option value="$2,000 ">$2,000</option>
+                                            <option value="$3,000 ">$3,000</option>
+                                            <option value="$4,000 ">$4,000</option>
+                                            <option value="$5,000 ">$5,000</option>
+                                            <option value="$6,000 ">$6,000</option>
+                                            <option value="$7,000 ">$7,000</option>
+                                            <option value="$8,000 ">$8,000</option>
+                                            <option value="$9,000 ">$9,000</option>
+                                            <option value="$10,000 ">$10,000</option>
+                                            <option value="$20,000 ">$20,000</option>
+                                            <option value="$30,000 ">$30,000</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12 col-sm-12">
+                                        <select name=" " id=" " class="js__header-search-shadow ">
+                                            <option value="Max Price ">Max Price</option>
+                                            <option value="$1,000 ">$1,000</option>
+                                            <option value="$2,000 ">$2,000</option>
+                                            <option value="$3,000 ">$3,000</option>
+                                            <option value="$4,000 ">$4,000</option>
+                                            <option value="$5,000 ">$5,000</option>
+                                            <option value="$6,000 ">$6,000</option>
+                                            <option value="$7,000 ">$7,000</option>
+                                            <option value="$8,000 ">$8,000</option>
+                                            <option value="$9,000 ">$9,000</option>
+                                            <option value="$10,000 ">$10,000</option>
+                                            <option value="$20,000 ">$20,000</option>
+                                            <option value="$30,000 ">$30,000</option>
+                                            <option value="$50,000 ">$50,000</option>
+                                            <option value="$100,000 ">$100,000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row ">
+                            <div class="col-md-12 col-sm-12 col-lg-4 header__search-right-form-field ">
+                                <div class="header__search-right-size ">
+                                    Size [<span class=" "></span> 0 - <span class="header__search-right-size-r ">1000 </span>] SqFt
+                                </div>
+                                <div class="range ">
+                                    <div class="sliderValue ">
+                                        <span>100</span>
+                                    </div>
+                                    <div class="field ">
+                                        <div class="value left ">0</div>
+                                        <input class="mr-0" type="range" min="0" max="1000" value="100" steps="1">
+                                        <div class="value right ">1000</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-4 header__search-right-form-field ">
+                                <div class="header__search-right-size ">
+                                    Land Area [<span class=" "></span> 0 - <span class="header__search-right-size-r ">1000 </span>] SqFt
+                                </div>
+                                <div class="range ">
+                                    <div class="sliderValue ">
+                                        <span>100</span>
+                                    </div>
+                                    <div class="field ">
+                                        <div class="value left ">0</div>
+                                        <input class="mr-0" type="range" min="0" max="1000" value="100" steps="1">
+                                        <div class="value right ">1000</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-4 header__search-right-form-field ">
+
+                                <input type="text " placeholder=" " class="js__header-search-shadow ">
+                                <label class="header__search-label " for=" ">Property ID</label>
+                            </div>
+                        </div> -->
+                        <div class="header__search-right-body-search ">
+
+
+                            <form action="{% url 'properties:postSearchList' %}" method="post" class="">
+                                {% csrf_token %} {{ SF }}
+                                <input class="btn-SendEmail" type="submit" value="Search">
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container_card ">
+            <div class="property__list ">
+                <div class="property__list-header row ">
+                    <div class="property__list-header-left col-md-6 reveal__scale ">
+                        <h2>Favorites List</h2>
+                        <p>browse our dream house</p>
+                    </div>
+                    <div class="property__list-header-right col-md-6 ">
+                        <div class="property__list-header-right-btn ">
+                            <div class="property__header-btn-left ">
+                                <div class="property__header-next-before js__full-items">
+                                    <i class="fas fa-list"></i>
+                                </div>
+
+                                <div class="property__header-next-after js__col-items">
+                                    <i class="fas fa-th-large"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="property__lists-slider ">
+                    <div class="property__lists-slide ">
+                        <div class="property__list-body ">
+                            <div class="property__list-line row reveal__tranAmX ">
+                                {% for HouseListData in HouseList %}
+                                <div id="place__{{HouseListData.28}}" class="col-xs-12 col-sm-12 col-md-6 col-lg-4 ">
+                                    <div class="property__items  js__items-flex">
+                                        <div class="property__img ">
+                                            <img onerror="this.src = '../../static/images/propertyList/placeholder.png'" src='{{ MEDIA_URL }}{{ HouseListData.20 }}' alt="">
+                                            <div class="property__state">
+                                                <p>{{HouseListData.4}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="property__list-line-content ">
+                                            <button class="property_list-btn-like">
+                                                <i class="fas fa-heart"></i>
+                                            </button>
+                                            <div class="property__list-line-topText ">
+                                                {{HouseListData.3}}
+
+                                            </div>
+
+                                            <h1>NovaWorld {{HouseListData.30}}</h1>
+
+                                            <div class="property__list-line-text ">
+                                                <div class="property__list-line-map ">
+                                                    <i class="fas fa-map-marker-alt "></i>
+                                                    <a href="https://goo.gl/maps/SMAr91229t6wUi1a9">
+                                                        <span>{{HouseListData.32}},{{HouseListData.30}},{{HouseListData.28}}</span>
+                                                    </a>
+                                                </div>
+                                                <table class="property__list-line-table ">
+                                                    <tr>
+                                                        <td>Baths</td>
+                                                        <td>Beds</td>
+                                                        <td>Rooms</td>
+                                                        <td>Area</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <i class="fas fa-bath "></i>
+                                                            <span>{{HouseListData.38}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <i class="fas fa-bed "></i>
+                                                            <span>{{HouseListData.40}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <i class="fas fa-inbox "></i>
+                                                            <span>{{HouseListData.42}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <i class="fas fa-map "></i>
+                                                            <span>{{HouseListData.6}} sq ft</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+
+                                                <div class="property__list-bottomText ">
+
+                                                    <div class="property__list-btn ">
+                                                        <div class="property__list-btn-left ">
+                                                            <i class="fas fa-cart-plus "></i>
+                                                        </div>
+                                                        <div class="property__list-btn-right ">
+                                                            <span>Rent</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="property__list-btn-cost ">
+                                                        <span>${{HouseListData.2}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="property__list-type ">
+                                            For Rent
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="property__list-place reveal__tranAmX ">
+            <div class="row ">
+                {% for TopProvinceItems in TopProvince%}
+                <div class="col-sm-12 col-md-6 col-lg-2 pd_0 ">
+                    <div class="property__list-place-items ">
+                        <div class="property__list-place-img ">
+                            <img onerror="this.src = '../../static/images/propertyList/placeholder.png'" src='{{ MEDIA_URL }}{{ TopProvinceItems.0 }}' alt="">
+                        </div>
+                        <a href="#place__{{TopProvinceItems.1}}">
+                            <div class="property__list-place-btn ">
+                                {{TopProvinceItems.1}}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+
+    <!--  begin footer  -->
+    <footer>
+        <div class="footer_wrap ">
+            <div class="footer__container ">
+                <div class="row ">
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-6 footer__container-left ">
+                        <div class="footer__container-logo ">
+                            <img src="{% static 'images/logo/Alte.png' %}" alt=" ">
+                        </div>
+                        <p class="reveal__scale ">Altegroup is a premium Property template based on Bootstrap 4. Rethouse Real Estate helped thousands of clients to find the right property for their needs.</p>
+                        <div class="footer__container-info ">
+                            <div class="footer__info-place reveal__scale ">
+                                <i class="fas fa-map-marker-alt "></i>
+                                <span> 3 Cau Giay Street, Dong Da District, Hanoi City</span>
+                            </div>
+                            <div class="footer__info-phone reveal__scale ">
+                                <i class="fas fa-phone-square-alt "></i>
+                                <span>0987654321</span>
+                            </div>
+                            <div class="footer__info-headphone reveal__scale ">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>altegroup@gmail.com</span>
+                            </div>
+
+                            <div class="footer__info-clock reveal__scale ">
+                                <i class="fas fa-clock "></i>
+                                <span>Mon - Sun / 9:00AM - 8:00PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-6 footer__container-between reveal__scale ">
+                        <div class="row ">
+                            <p class="reveal__scale">Quick Links</p>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                                <ul>
+                                    <li><a href="{% url 'home:home' %}">Home</a></li>
+                                    <li><a href="{% url 'about:about' %}">About</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                                <ul>
+                                    <li><a href="{% url 'properties:getProperties' %}">Properties</a></li>
+                                    <li><a href="{% url 'contact:contact' %}">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-12 footer__container-right ">
+                        <p class="reveal__scale ">Follow Us</p>
+                        <p class="reveal__scale ">Follow us and stay in touch to get the latest news</p>
+                        <div class="footer__social ">
+                            <a href="https://www.facebook.com/profile.php?id=100033582201464">
+                                <i class="fab fa-twitter "></i>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=100033582201464">
+                                <i class="fab fa-facebook-f "></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UCeaA_PU_cKSdix3o7-aUfig">
+                                <i class="fab fa-youtube "></i>
+                            </a>
+                        </div>
+                        <p class="reveal__scale ">Newsletter</p>
+                        <p class="reveal__scale ">Don’t miss to subscribe to our news feeds, kindly fill the form below</p>
+                        <form action="{% url 'properties:getProperties' %}" method="post" class="footer__sendemail">
+                            {% csrf_token %} {{ CE }}
+                            <input class="btn-SendEmail" type="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- javascript:;ngăn trặn mặc định của href -->
+    <a href="#header " class="gototop ">
+        <i class="fas fa-level-up-alt "></i>
+    </a>
+    <!-- link js -->
+    <script src="{% static 'properties/properties.js' %}"></script>
+{% endblock %}

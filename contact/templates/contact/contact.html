@@ -1,0 +1,298 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Contact | Alte - Real estate | Find your future home{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'contact/base.css' %}">
+    <link rel="stylesheet" href="{% static 'contact/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'contact/main.css' %}">
+    <link rel="stylesheet" href="{% static 'contact/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'contact/res_contact.css' %}">
+{% endblock %}
+
+{% block content %}
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="header__wrap">
+                    <div class="header">
+                        <div class="header__left col-lg-1 col-md-2">
+                            <i class="fas fa-home"></i>
+                            <span>Alte</span>
+                        </div>
+                        <div class="mobile-bars">
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+                        <div class="header__right col-lg-11 col-md-10">
+                            <i class="fa-solid fa-xmark"></i>
+                            <ul class="header__list">
+                                <li class="header__item">
+                                    <a href="{% url 'home:home' %}" class="header__link">Home</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="{% url 'about:about' %}" class="header__link">About</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="{% url 'properties:getProperties' %}" class="header__link">Properties</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="#" class="header__link">Contact</a>
+                                </li>
+                                {% if user.id != None %}
+                                    <li class="header__item">
+                                        <span class="header__user">
+                                            Hello, 
+                                            {% if user.id != None %}
+                                                {{ request.user }}
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="header__item">
+                                        <a href="{% url 'logout' %}" class="header__link">Logout</a>
+                                    </li>
+                                {% else %}
+                                    <li class="header__item">
+                                        <a href="{% url 'register' %}" class="header__link link-signup">Register</a>
+                                    </li>
+                                    <li class="header__item">
+                                        <a href="{% url 'login' %}" class="header__link link-signin">Login</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="header__content">
+                        <h1>CONTACT US</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% comment %} <div class="my-modal sign-up">
+        <form action="" class="form-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="modal-heading">Sign Up</div>
+            <input class="form-input" type="email" placeholder="Enter your email" required>
+            <button class="done">Continue</button>
+            <div class="hr"></div>
+            <div class="wrap-btn">
+                <a href="https://www.facebook.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://accounts.google.com/ServiceLogin/signinchooser?hl=vi&passive=true&continue=https%3A%2F%2Fwww.google.com.vn%2F%3Fhl%3Dvi&ec=GAZAmgQ&flowName=GlifWebSignIn&flowEntry=ServiceLogin" class="social-media" target="_blank">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Google</span>
+                </a>
+                <a href="https://www.apple.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-apple"></i>
+                    <span>Apple</span>
+                </a>
+            </div>
+            <p class="form-service">
+                By registering, you agree to Alte about
+                <a href="">Terms of Service</a> &
+                <a href="">Privacy Policy</a>
+            </p>
+        </form>
+    </div>
+
+    <div class="my-modal sign-in">
+        <form action="" class="form-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="modal-heading">Sign In</div>
+            <input class="form-input" type="email" placeholder="Enter your email" required>
+            <div class="wrap-psw">
+                <input class="form-input" type="password" placeholder="Enter password" required>
+                <i class="fa-solid fa-eye"></i>
+            </div>
+            <button class="done">Sign In</button>
+            <a href="" class="wrap-service-left">Forgot password?</a>
+            <div class="hr"></div>
+            <div class="wrap-btn">
+                <a href="https://www.facebook.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://accounts.google.com/ServiceLogin/signinchooser?hl=vi&passive=true&continue=https%3A%2F%2Fwww.google.com.vn%2F%3Fhl%3Dvi&ec=GAZAmgQ&flowName=GlifWebSignIn&flowEntry=ServiceLogin" class="social-media" target="_blank">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Google</span>
+                </a>
+                <a href="https://www.apple.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-apple"></i>
+                    <span>Apple</span>
+                </a>
+            </div>
+        </form>
+    </div> {% endcomment %}
+
+    <main>
+        <!-- Contact 2 start -->
+        <div class="contact">
+            <div class="container">
+                <div class="main-title">
+                    <h1>Contact Us</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                </div>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 contact-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h5>Office Address</h5>
+                            <p>3 Cau Giay Street, Dong Da District, Hanoi City</p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 contact-info">
+                            <i class="fa fa-phone"></i>
+                            <h5>Phone Number</h5>
+                            <p>0987654321</p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 contact-info">
+                            <i class="fa fa-envelope"></i>
+                            <h5>Email Address</h5>
+                            <p>altegroup@gmail.com</p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 contact-info">
+                            <i class="fa fa-fax"></i>
+                            <h5>Fax</h5>
+                            <p>+55 417 634 7X71</p>
+                        </div>
+                    </div>
+                </div>
+                <form action="{% url 'contact:contact' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-7 col-md-12">
+                            <div class="form-section">
+                                <div class="row">
+                                    {{ CF }}
+                                    <div class="wrapper">
+                                        <input class="btn-4" type="submit">
+                                        <input class="contactBtn" onclick="resetInput()" type="Reset">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-12">
+                            <div class="opening-hours">
+                                <h3>Opening Hours</h3>
+                                <ul class="day">
+                                    <li><strong>Sunday</strong> <span class="text-red"> closed</span></li>
+                                    <li><strong>Monday</strong> <span> 10 AM - 8 PM</span></li>
+                                    <li><strong>Tuesday </strong> <span> 10 AM - 8 PM</span></li>
+                                    <li><strong>Wednesday </strong> <span> 10 AM - 8 PM</span></li>
+                                    <li><strong>Thursday </strong> <span> 10 AM - 8 PM</span></li>
+                                    <li><strong>Friday </strong> <span> 10 AM - 8 PM</span></li>
+                                    <li><strong>Saturday </strong> <span> 10 AM - 8 PM</span></li>
+                                </ul>
+                                <h3>Follow Us</h3>
+                                <ul class="social-list clearfix">
+                                    <li><a href="#" class="facebook-bg"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#" class="twitter-bg"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#" class="google-bg"><i class="fab fa-google-plus-g"></i></a></li>
+                                    <li><a href="#" class="rss-bg"><i class="fas fa-rss"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Contact 2 end -->
+
+        <!-- Maps start -->
+        <div class="section maps">
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.113240922963!2d105.80123181488345!3d21.028154485998748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab424a50fff9%3A0xbe3a7f3670c0a45f!2sUniversity%20of%20Transport%20and%20Communications!5e0!3m2!1sfr!2s!4v1645632730865!5m2!1sfr!2s"
+                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+        <!-- Maps end -->
+    </main>
+
+    <!--  begin footer  -->
+    <footer>
+        <div class="footer_wrap ">
+            <div class="footer__container ">
+                <div class="row ">
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-6 footer__container-left ">
+                        <div class="footer__container-logo ">
+                            <img src="{% static 'images/logo/Alte.png' %}" alt=" ">
+                        </div>
+                        <p class="reveal__scale ">Altegroup is a premium Property template based on Bootstrap 4. Rethouse Real Estate helped thousands of clients to find the right property for their needs.</p>
+                        <div class="footer__container-info ">
+                            <div class="footer__info-place reveal__scale ">
+                                <i class="fas fa-map-marker-alt "></i>
+                                <span> 3 Cau Giay Street, Dong Da District, Hanoi City</span>
+                            </div>
+                            <div class="footer__info-phone reveal__scale ">
+                                <i class="fas fa-phone-square-alt "></i>
+                                <span>0987654321</span>
+                            </div>
+                            <div class="footer__info-headphone reveal__scale ">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>altegroup@gmail.com</span>
+                            </div>
+
+                            <div class="footer__info-clock reveal__scale ">
+                                <i class="fas fa-clock "></i>
+                                <span>Mon - Sun / 9:00AM - 8:00PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-6 footer__container-between reveal__scale ">
+                        <div class="row ">
+                            <p class="reveal__scale">Quick Links</p>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                                <ul>
+                                    <li><a href="{% url 'home:home' %}">Home</a></li>
+                                    <li><a href="{% url 'about:about' %}">About</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                                <ul>
+                                    <li><a href="{% url 'properties:getProperties' %}">Properties</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-12 footer__container-right ">
+                        <p class="reveal__scale ">Follow Us</p>
+                        <p class="reveal__scale ">Follow us and stay in touch to get the latest news</p>
+                        <div class="footer__social ">
+                            <a href="https://www.facebook.com/profile.php?id=100033582201464">
+                                <i class="fab fa-twitter "></i>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=100033582201464">
+                                <i class="fab fa-facebook-f "></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UCeaA_PU_cKSdix3o7-aUfig">
+                                <i class="fab fa-youtube "></i>
+                            </a>
+                        </div>
+                        <p class="reveal__scale ">Newsletter</p>
+                        <p class="reveal__scale ">Don’t miss to subscribe to our news feeds, kindly fill the form below</p>
+
+                        <form action="{% url 'contact:contact' %}" method="post" class="footer__sendemail">
+                            {% csrf_token %} {{ CE }}
+                            <input class="btn-SendEmail" type="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="change-color">
+        <i class="fas fa-moon"></i>
+    </div>
+    <div class="my-tooltip">Click to change to other mode</div>
+    <a class="up" href="#">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+    <script src="{% static 'contact/script.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,571 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Alte - Real estate | Find your future home{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'home/base.css' %}">
+    <link rel="stylesheet" href="{% static 'home/main.css' %}">
+    <link rel="stylesheet" href="{% static 'home/responsive.css' %}">
+{% endblock %}
+
+{% block content %}
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="header__wrap">
+                    <div class="header">
+                        <div class="header__left col-lg-1 col-md-2">
+                            <i class="fas fa-home"></i>
+                            <span>Alte</span>
+                        </div>
+                        <div class="mobile-bars">
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+                        <div class="header__right col-lg-11 col-md-10">
+                            <i class="fa-solid fa-xmark"></i>
+                            <ul class="header__list">
+                                <li class="header__item">
+                                    <a href="#" class="header__link">Home</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="{% url 'about:about' %}" class="header__link">About</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="{% url 'properties:getProperties' %}" class="header__link">Properties</a>
+                                </li>
+                                <li class="header__item">
+                                    <a href="{% url 'contact:contact' %}" class="header__link">Contact</a>
+                                </li>
+                                {% if user.id != None %}
+                                    <li class="header__item">
+                                        <span class="header__user">
+                                            Hello, 
+                                            {% if user.id != None %}
+                                                {{ request.user }}
+                                            {% endif %}
+                                        </span>
+                                    </li>
+                                    <li class="header__item">
+                                        <a href="{% url 'logout' %}" class="header__link">Logout</a>
+                                    </li>
+                                {% else %}
+                                    <li class="header__item">
+                                        <a href="{% url 'register' %}" class="header__link link-signup">Register</a>
+                                    </li>
+                                    <li class="header__item">
+                                        <a href="{% url 'login' %}" class="header__link link-signin">Login</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="header__content">
+                        <h1>find your future home</h1>
+                        <h3>with alte - real estate web site</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% comment %} <div class="my-modal sign-up">
+        <form action="" class="form-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="modal-heading">Sign Up</div>
+            <input class="form-input" type="email" placeholder="Enter your email" required>
+            <button class="done">Continue</button>
+            <div class="hr"></div>
+            <div class="wrap-btn">
+                <a href="https://www.facebook.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://accounts.google.com/ServiceLogin/signinchooser?hl=vi&passive=true&continue=https%3A%2F%2Fwww.google.com.vn%2F%3Fhl%3Dvi&ec=GAZAmgQ&flowName=GlifWebSignIn&flowEntry=ServiceLogin" class="social-media" target="_blank">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Google</span>
+                </a>
+                <a href="https://www.apple.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-apple"></i>
+                    <span>Apple</span>
+                </a>
+            </div>
+            <p class="form-service">
+                By registering, you agree to Alte about
+                <a href="">Terms of Service</a> &
+                <a href="">Privacy Policy</a>
+            </p>
+        </form>
+    </div>
+
+    <div class="my-modal sign-in">
+        <form action="" class="form-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="modal-heading">Sign In</div>
+            <input class="form-input" type="email" placeholder="Enter your email" required>
+            <div class="wrap-psw">
+                <input class="form-input" type="password" placeholder="Enter password" required>
+                <i class="fa-solid fa-eye"></i>
+            </div>
+            <button class="done">Sign In</button>
+            <a href="" class="wrap-service-left">Forgot password?</a>
+            <div class="hr"></div>
+            <div class="wrap-btn">
+                <a href="https://www.facebook.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://accounts.google.com/ServiceLogin/signinchooser?hl=vi&passive=true&continue=https%3A%2F%2Fwww.google.com.vn%2F%3Fhl%3Dvi&ec=GAZAmgQ&flowName=GlifWebSignIn&flowEntry=ServiceLogin" class="social-media" target="_blank">
+                    <i class="fa-brands fa-google"></i>
+                    <span>Google</span>
+                </a>
+                <a href="https://www.apple.com/" class="social-media" target="_blank">
+                    <i class="fa-brands fa-apple"></i>
+                    <span>Apple</span>
+                </a>
+            </div>
+        </form>
+    </div> {% endcomment %}
+
+    <main>
+        <!-- Services -->
+        <div class="services main-frame">
+            <h2 class="services__heading main__heading">Our Services</h2>
+            <div class="row">
+                <div class="service__wrap col-lg-4 col-md-12">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Find a house easily in Vietnam</h4>
+                    <p>Our system stretches throughout the provinces in Vietnam</p>
+                </div>
+                <div class="service__wrap col-lg-4 col-md-12">
+                    <i class="fas fa-user-friends"></i>
+                    <h4>We have experienced staffs</h4>
+                    <p>Our staff has many years of experience</p>
+                </div>
+                <div class="service__wrap col-lg-4 col-md-12">
+                    <i class="far fa-building"></i>
+                    <h4>Buy or rent a dream house</h4>
+                    <p>We have the best list of houses in Vietnam</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Properties -->
+        <div class="recent__properties">
+            <div class="recent__properties-content main-frame">
+                <div class="recent__property-heading main__heading">Recent Properties</div>
+                <div class="property-wrap row">
+                    {% for HouseListData in HouseList %}
+                    <div class="col-lg-4 col-md-6">
+                        <a class="property" href="{% url 'properties:getProperties' %}">
+                            <div class="property-img">
+                                <img src='{{ MEDIA_URL }}{{ HouseListData.20 }}' alt="">
+                            </div>
+                            <div class="property-desc">
+                                <div class="property-heading">NovaWorld {{HouseListData.30}}</div>
+
+                                <div class="property-detail">
+                                    <div class="property-left">
+                                        <i class="fas fa-bed"></i>
+                                        <span>{{HouseListData.40}} Beds</span>
+                                    </div>
+                                    <div class="property-between">
+                                        <i class="fas fa-bath"></i>
+                                        <span>{{HouseListData.38}} Baths</span>
+                                    </div>
+                                    <div class="property-right">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>{{HouseListData.28}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="property-type">
+                                For sale
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                    <!-- <div class="col-lg-4 col-md-6">
+                        <a class="property" href="">
+                            <div class="property-img">
+                                <img src="{% static 'images/property/pro2.jpg' %}" alt="">
+                            </div>
+                            <div class="property-desc">
+                                <div class="property-heading">Shoji Villa</div>
+                                <div class="property-text">One of the most beautiful villas in Hanoi</div>
+                                <div class="property-detail">
+                                    <div class="property-left">
+                                        <i class="fas fa-bed"></i>
+                                        <span>5 Beds</span>
+                                    </div>
+                                    <div class="property-between">
+                                        <i class="fas fa-bath"></i>
+                                        <span>5 Baths</span>
+                                    </div>
+                                    <div class="property-right">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Hanoi</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="property-type">
+                                For rent
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <a class="property" href="">
+                            <div class="property-img">
+                                <img src="{% static 'images/property/pro3.jpg' %}" alt="">
+                            </div>
+                            <div class="property-desc">
+                                <div class="property-heading">Beautiful Single Home</div>
+                                <div class="property-text">A quiet area far from the city</div>
+                                <div class="property-detail">
+                                    <div class="property-left">
+                                        <i class="fas fa-bed"></i>
+                                        <span>2 Beds</span>
+                                    </div>
+                                    <div class="property-between">
+                                        <i class="fas fa-bath"></i>
+                                        <span>2 Baths</span>
+                                    </div>
+                                    <div class="property-right">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Danang</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="property-type">
+                                For sale
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <a class="property" href="">
+                            <div class="property-img">
+                                <img src="{% static 'images/property/pro4.jpg' %}" alt="">
+                            </div>
+                            <div class="property-desc">
+                                <div class="property-heading">Beautiful Family Home</div>
+                                <div class="property-text">A house near the city center, convenient to live</div>
+                                <div class="property-detail">
+                                    <div class="property-left">
+                                        <i class="fas fa-bed"></i>
+                                        <span>2 Beds</span>
+                                    </div>
+                                    <div class="property-between">
+                                        <i class="fas fa-bath"></i>
+                                        <span>1 Baths</span>
+                                    </div>
+                                    <div class="property-right">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Ho Chi Minh</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="property-type">
+                                For sale
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <a class="property" href="">
+                            <div class="property-img">
+                                <img src="{% static 'images/property/pro5.jpg' %}" alt="">
+                            </div>
+                            <div class="property-desc">
+                                <div class="property-heading">Furama Villa</div>
+                                <div class="property-text">One of the most beautiful villas in Da Nang</div>
+                                <div class="property-detail">
+                                    <div class="property-left">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3 Beds</span>
+                                    </div>
+                                    <div class="property-between">
+                                        <i class="fas fa-bath"></i>
+                                        <span>2 Baths</span>
+                                    </div>
+                                    <div class="property-right">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Danang</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="property-type">
+                                For rent
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <a class="property" href="">
+                            <div class="property-img">
+                                <img src="{% static 'images/property/pro6.jpg' %}" alt="">
+                            </div>
+                            <div class="property-desc">
+                                <div class="property-heading">Beautiful Family Home</div>
+                                <div class="property-text">A quiet area far from the city</div>
+                                <div class="property-detail">
+                                    <div class="property-left">
+                                        <i class="fas fa-bed"></i>
+                                        <span>4 Beds</span>
+                                    </div>
+                                    <div class="property-between">
+                                        <i class="fas fa-bath"></i>
+                                        <span>2 Baths</span>
+                                    </div>
+                                    <div class="property-right">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Ninh Binh</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="property-type">
+                                For rent
+                            </div>
+                        </a>
+                    </div> -->
+                </div>
+                <div class="wrap-more">
+                    <a href="{% url 'properties:getProperties' %}" class="property-more" target="_blank">More</a>
+                </div>
+                <div class="mode__bg"></div>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="meet__us main-frame" id="meet__us">
+            <div class="meet__us-heading main__heading">Meet Our Agents</div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="our-agents">
+                        <div class="agents-img">
+                            <img src="{% static 'images/our_agents/mem1.jpg' %}" alt="">
+                            <div class="hidden-in4">
+                                <div class="agents-overlay"></div>
+                                <a href="https://www.facebook.com/nnhiep582/" target="_blank"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                        <div class="agents-in4">
+                            <div class="agents-name">Nguyen Ngoc Hiep</div>
+                            <div class="agents-job">Developer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="our-agents">
+                        <div class="agents-img">
+                            <img src="{% static 'images/our_agents/mem2.jpg' %}" alt="">
+                            <div class="hidden-in4">
+                                <div class="agents-overlay"></div>
+                                <a href="https://www.facebook.com/profile.php?id=100008287083206" target="_blank"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                        <div class="agents-in4">
+                            <div class="agents-name">Nguyen Hoang Lan</div>
+                            <div class="agents-job">Developer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="our-agents">
+                        <div class="agents-img">
+                            <img src="{% static 'images/our_agents/mem3.jpg' %}" alt="">
+                            <div class="hidden-in4">
+                                <div class="agents-overlay"></div>
+                                <a href="https://www.facebook.com/profile.php?id=100033582201464" target="_blank"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                        <div class="agents-in4">
+                            <div class="agents-name">Ngo Trung Kien</div>
+                            <div class="agents-job">Developer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="our-agents">
+                        <div class="agents-img">
+                            <img src="{% static 'images/our_agents/mem4.jpg' %}" alt="">
+                            <div class="hidden-in4">
+                                <div class="agents-overlay"></div>
+                                <a href="https://www.facebook.com/profile.php?id=100057146420039" target="_blank"><i class="fab fa-facebook"></i></a>
+                            </div>
+                        </div>
+                        <div class="agents-in4">
+                            <div class="agents-name">Nguyen Quynh Anh</div>
+                            <div class="agents-job">Developer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="our__feedback">
+            <div class="our__feedback-wrap main-frame">
+                <div class="our__feedback-heading main__heading">Our Feedback</div>
+                <div class="row">
+                   {% for FeedBackItems in FeedBackLists %}
+                    <div class="col-lg-4 col-md-12">
+                        <div class="feedback">
+                            <div class="feedback-img">
+                                <img src="{% static 'images/feedback/fb1.jpg' %}" alt="">
+                            </div>
+                            <div class="feedback-content">
+                                <div class="feedback-name">{{FeedBackItems.1}}</div>
+                                <div class="feedback-job">{{FeedBackItems.2}}</div>
+                                <div class="feedback-review">{{FeedBackItems.5}}</div>
+                                <div class="feedback-rate">
+                                    {% with ''|center:FeedBackItems.3 as range %}
+                                    {% for x in range %}
+                                        <i class="fas fa-star"></i>
+                                    {% endfor %}
+                                    {% endwith %}
+
+                                    {% if FeedBackItems.3 < 5 %}
+                                        {% load mathfilters %}
+                                        {% load define_action %}
+                                        {% define 5|sub:FeedBackItems.3 as temp %}
+                                        {% with ''|center:temp as range2 %}
+                                        {% for y in range2 %}
+                                            <i class="fa-regular fa-star"></i>
+                                        {% endfor %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %} 
+                    <!-- <div class="col-lg-4 col-md-12">
+                        <div class="feedback">
+                            <div class="feedback-img">
+                                <img src="{% static 'images/feedback/fb2.jpeg' %}" alt="">
+                            </div>
+                            <div class="feedback-content">
+                                <div class="feedback-name">Lionel Messi</div>
+                                <div class="feedback-job">Football Player</div>
+                                <div class="feedback-review">"It's not difficult to use, it's very easy. My family has booked a very good room in Hanoi on our recent trip."</div>
+                                <div class="feedback-rate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="feedback">
+                            <div class="feedback-img">
+                                <img src="{% static 'images/feedback/fb3.jpg' %}" alt="">
+                            </div>
+                            <div class="feedback-content">
+                                <div class="feedback-name">Son Heung-min</div>
+                                <div class="feedback-job">Football Player</div>
+                                <div class="feedback-review">"Great! It's better than I imagined, beyond my expectations."</div>
+                                <div class="feedback-rate">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="mode__bg"></div>
+            </div>
+        </div>
+
+        <div class="break_p"></div>
+
+    </main>
+
+    <!--  begin footer  -->
+    <footer>
+        <div class="footer_wrap ">
+            <div class="footer__container ">
+                <div class="row ">
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-6 footer__container-left ">
+                        <div class="footer__container-logo ">
+                            <img src="{% static 'images/logo/Alte.png' %}" alt=" ">
+                        </div>
+                        <p class="reveal__scale ">Altegroup is a premium Property template based on Bootstrap 4. Rethouse Real Estate helped thousands of clients to find the right property for their needs.</p>
+                        <div class="footer__container-info ">
+                            <div class="footer__info-place reveal__scale ">
+                                <i class="fas fa-map-marker-alt "></i>
+                                <span> 3 Cau Giay Street, Dong Da District, Hanoi City</span>
+                            </div>
+                            <div class="footer__info-phone reveal__scale ">
+                                <i class="fas fa-phone-square-alt "></i>
+                                <span>0987654321</span>
+                            </div>
+                            <div class="footer__info-headphone reveal__scale ">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>altegroup@gmail.com</span>
+                            </div>
+
+                            <div class="footer__info-clock reveal__scale ">
+                                <i class="fas fa-clock "></i>
+                                <span>Mon - Sun / 9:00AM - 8:00PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-6 footer__container-between reveal__scale ">
+                        <div class="row ">
+                            <p class="reveal__scale">Quick Links</p>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="{% url 'about:about' %}">About</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 ">
+                                <ul>
+                                    <li><a href="{% url 'properties:getProperties' %}">Properties</a></li>
+                                    <li><a href="{% url 'contact:contact' %}">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-lg-4 col-xs-12 col-sm-12 col-md-12 footer__container-right ">
+                        <p class="reveal__scale ">Follow Us</p>
+                        <p class="reveal__scale ">Follow us and stay in touch to get the latest news</p>
+                        <div class="footer__social ">
+                            <a href="https://www.facebook.com/profile.php?id=100033582201464">
+                                <i class="fab fa-twitter "></i>
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=100033582201464">
+                                <i class="fab fa-facebook-f "></i>
+                            </a>
+                            <a href="https://www.youtube.com/channel/UCeaA_PU_cKSdix3o7-aUfig">
+                                <i class="fab fa-youtube "></i>
+                            </a>
+                        </div>
+                        <p class="reveal__scale ">Newsletter</p>
+                        <p class="reveal__scale ">Don’t miss to subscribe to our news feeds, kindly fill the form below</p>
+
+                        <form action="{% url 'home:home' %}" method="post" class="footer__sendemail">
+                            {% csrf_token %} {{ CE }}
+                            <input class="btn-SendEmail" type="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="change-color">
+        <i class="fas fa-moon"></i>
+    </div>
+    <div class="my-tooltip">Click to change to other mode</div>
+    <a class="up" href="#">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+    <script src="{% static 'home/script.js' %}"></script>
+{% endblock %}
