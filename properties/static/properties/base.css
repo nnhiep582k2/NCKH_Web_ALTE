@@ -1,0 +1,26 @@
+:root {
+    --primary-color: rgb(253, 124, 32);
+    --secondary-color: rgb(226, 108, 24);
+    --font-color: rgb(87, 87, 87);
+    --bg-color: #f7f7f7;
+    --subtext-color: rgb(87, 87, 87);
+    --footer-color: rgb(212, 108, 34);
+    --properties-color: #ff6a00;
+    --white-color: #fff;
+    --boxshadowx-style: #cfe1ea 2px -3px 53px -7px;
+    --black-color: black;
+}
+
+.main__heading {
+    font-size: 30px;
+    font-weight: 400;
+    padding-top: 28px;
+    margin-top: 32px;
+    margin-bottom: 30px;
+    color: var(--subtext-color);
+}
+
+.main-frame {
+    max-width: 1200px;
+    margin: 0 auto;
+}

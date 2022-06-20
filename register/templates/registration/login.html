@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Login | Alte{% endblock %}
+{% load crispy_forms_tags %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'login/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="post" class="form-group-wrap">
+        <h2 class="login-title">Login</h2>
+        {% csrf_token %}
+        {{form|crispy}}
+        <p>Don't have an account? Create one <a href="/register">here</a></p>
+        <button type="submit" class="btn btn-success">Login</button>
+    </form>
+{% endblock %}
